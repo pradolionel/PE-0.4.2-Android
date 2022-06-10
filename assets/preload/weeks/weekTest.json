@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["Hjoim", "bf", [0, 0, 0]]
+	],
+
+	"weekCharacters": [
+		"bf",
+		"bf",
+		"gf"
+	],
+	"weekBackground": "stage",
+
+	"storyName": "test",
+	"weekBefore": "week6",
+	"weekName": "Week Testing",
+	"startUnlocked": true,
+
+	"hideStoryMode": false,
+	"hideFreeplay": false
+}

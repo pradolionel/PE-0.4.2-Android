@@ -40,7 +40,6 @@ class ClientPrefs {
 	public static var memoryCounter:Bool = false;
 	public static var judgements:Bool = false;
 	public static var tabi:Bool = false;
-	public static var tabiMax:Int = 3;
 	public static var scoreType:String = 'Kade Engine';
 	public static var noAntimash:Bool = false;
 
@@ -98,8 +97,6 @@ class ClientPrefs {
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.iconBoping = iconBoping;
-		FlxG.save.data.tabi = tabi;
-		FlxG.save.data.tabiMax = tabiMax;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.imagesPersist = imagesPersist;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -159,56 +156,50 @@ class ClientPrefs {
 			camZooms = FlxG.save.data.camZooms;
 		}
 		if(FlxG.save.data.noAntimash != null) {
-                        noAntimash = FlxG.save.data.noAntimash;
-                }
+            noAntimash = FlxG.save.data.noAntimash;
+        }
 		if(FlxG.save.data.healthBarAlpha != null) {
-                        healthBarAlpha = FlxG.save.data.healthBarAlpha;
-                }
+            healthBarAlpha = FlxG.save.data.healthBarAlpha;
+        }
 		if(FlxG.save.data.laneOpacity != null) {
-                        laneOpacity = FlxG.save.data.laneOpacity;
-                }
+            laneOpacity = FlxG.save.data.laneOpacity;
+        }
 		if(FlxG.save.data.arrowOpacity != null) {
-                        arrowOpacity = FlxG.save.data.arrowOpacity;
-                }
+            arrowOpacity = FlxG.save.data.arrowOpacity;
+        }
 		if(FlxG.save.data.memoryCounter != null) {
-                        memoryCounter = FlxG.save.data.memoryCounter;
-                }
+            memoryCounter = FlxG.save.data.memoryCounter;
+        }
 		if(FlxG.save.data.playHitSounds != null) {
-                        playHitSounds = FlxG.save.data.playHitSounds;
-                }
+            playHitSounds = FlxG.save.data.playHitSounds;
+        }
 		if(FlxG.save.data.dynamicCam != null) {
-                        dynamicCam = FlxG.save.data.dynamicCam;
-                }
+            dynamicCam = FlxG.save.data.dynamicCam;
+        }
 		if(FlxG.save.data.opponentArrowOpacity != null) {
-                        opponentArrowOpacity = FlxG.save.data.opponentArrowOpacity;
-                }
+            opponentArrowOpacity = FlxG.save.data.opponentArrowOpacity;
+        }
 		if(FlxG.save.data.opponentLaneOpacity != null) {
-                        opponentLaneOpacity = FlxG.save.data.opponentLaneOpacity;
-                }
+            opponentLaneOpacity = FlxG.save.data.opponentLaneOpacity;
+        }
 		if(FlxG.save.data.scoreType != null) {
-                        scoreType = FlxG.save.data.scoreType;
-                }
+            scoreType = FlxG.save.data.scoreType;
+        }
 		if(FlxG.save.data.iconBoping != null) {
-                        iconBoping = FlxG.save.data.iconBoping;
-                }
-		if(FlxG.save.data.tabi != null) {
-			tabi = FlxG.save.data.tabi;
-                }
-		if(FlxG.save.data.tabiMax != null) {
-			tabiMax = FlxG.save.data.tabiMax;
-                }
+            iconBoping = FlxG.save.data.iconBoping;
+        }
 		if(FlxG.save.data.timeBarType != null) {
-                        timeBarType = FlxG.save.data.timeBarType;
-                }
+            timeBarType = FlxG.save.data.timeBarType;
+        }
 		if(FlxG.save.data.judgements != null) {
-                        judgements = FlxG.save.data.judgements;
-                }
+            judgements = FlxG.save.data.judgements;
+        }
 		if(FlxG.save.data.healthCounter != null) {
-                        healthCounter = FlxG.save.data.healthCounter;
-                }
+            healthCounter = FlxG.save.data.healthCounter;
+        }
 		if(FlxG.save.data.keTimeBar != null) {
-                        keTimeBar = FlxG.save.data.keTimeBar;
-                }
+            keTimeBar = FlxG.save.data.keTimeBar;
+        }
 		if(FlxG.save.data.hideHud != null) {
 			hideHud = FlxG.save.data.hideHud;
 		}

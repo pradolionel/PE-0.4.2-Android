@@ -63,30 +63,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('No Antimash', //Name
 			'If checked, disables antimash.', //Description
 			'noAntimash', //Save data variable name
 			'bool', //Variable type
 			false); //Default value
 		addOption(option);
-
-
-		var option:Option = new Option('Tabi',
-		'Certified tabi extra health classic.',
-                        'tabi',
-                        'bool',
-                        false);
-                addOption(option);
-                var option:Option = new Option('HP',
-                        "How much tabi hp u want",                                                              
-			'tabiMax',
-                        'int',
-                        3);
-                addOption(option);
-		option.minValue = 3; 
-		option.maxValue = 300;
-                option.displayFormat = '%v MAX';
 
 		var option:Option = new Option('Note Delay',
 			'Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.',

@@ -990,43 +990,43 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		if (ClientPrefs.scoreType == 'Psych Engine') {
-                scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-                scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-                }
-                else if (ClientPrefs.scoreType == 'Kade Engine') {
-                scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
-                scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-                }
+        	scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+            scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        }
+        else if (ClientPrefs.scoreType == 'Kade Engine') {
+        	scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
+        	scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        }
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		if(ClientPrefs.scoreType != 'Disabled') { add(scoreTxt); }
 
 		healthCounter = new FlxText(0, healthBarBG.y - 48, FlxG.width, "" , 20);
-                healthCounter.setFormat(Paths.font("vcr.ttf"), 19, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-                healthCounter.scrollFactor.set();
-                healthCounter.borderSize = 1.25;
-                healthCounter.alpha = 1;
-                healthCounter.visible = ClientPrefs.healthCounter;
-                if(ClientPrefs.healthCounter) { add(healthCounter); }
+        healthCounter.setFormat(Paths.font("vcr.ttf"), 19, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        healthCounter.scrollFactor.set();
+        healthCounter.borderSize = 1.25;
+        healthCounter.alpha = 1;
+        healthCounter.visible = ClientPrefs.healthCounter;
+        if(ClientPrefs.healthCounter) { add(healthCounter); }
 
 		if (!ClientPrefs.noAntimash) {
-                        versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() , 16);
-                }
-                else if (ClientPrefs.noAntimash) {
-                        versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() + " | no Antimash! " , 16);
-                }
-			versionTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-                        versionTxt.scrollFactor.set();
-                        add(versionTxt);
+            versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() , 16);
+        }
+    	else if (ClientPrefs.noAntimash) {
+            versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() + " | no Antimash! " , 16);
+        }
+		versionTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        versionTxt.scrollFactor.set();
+        add(versionTxt);
 		
 		judgementCounter = new FlxText(20, 0, 0, "", 20);
-                judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-                judgementCounter.borderSize = 2;
-                judgementCounter.borderQuality = 2;
-                judgementCounter.scrollFactor.set();
-                judgementCounter.screenCenter(Y);
-                if(ClientPrefs.judgements) {add(judgementCounter);}
+        judgementCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        judgementCounter.borderSize = 2;
+        judgementCounter.borderQuality = 2;
+        judgementCounter.scrollFactor.set();
+        judgementCounter.screenCenter(Y);
+        if(ClientPrefs.judgements) {add(judgementCounter);}
 		
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -2206,6 +2206,7 @@ class PlayState extends MusicBeatState
 		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
 		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 
+		/*
 		if (!ClientPrefs.tabi)
                 {
                 if (health > 2)
@@ -2224,7 +2225,7 @@ class PlayState extends MusicBeatState
                 iconP2.x = p2ToUse;
                 if (health > ClientPrefs.tabiMax)
                         health = ClientPrefs.tabiMax;
-                }	
+                }	*/
 
 		if (healthBar.percent < 20) {
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(255, 64, 64), 0.3);

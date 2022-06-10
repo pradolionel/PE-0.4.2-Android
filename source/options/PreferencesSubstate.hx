@@ -32,7 +32,7 @@ class VisualsUISubState extends BaseOptionsMenu
 	public function new()
 	{
 		title = 'Custom Options';
-		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
+		rpcTitle = 'Custom Options Menu'; //for Discord Rich Presence
 
 		var option:Option = new Option('Score Type:',                                                                  
 			"What should be the score type?",

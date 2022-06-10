@@ -42,14 +42,6 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
-//		var option:Option = new Option('No Bg', //Name
-//                        'If checked, removes the background.', //Description
-//                        'noBg', //Save data variable name
-//                       'bool', //Variable type
-//                        false); //Default value
-//                addOption(option);
-//	No Anda :(
-
 		var option:Option = new Option('Anti-Aliasing',
 			'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
 			'globalAntialiasing',
