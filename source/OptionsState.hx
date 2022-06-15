@@ -106,13 +106,12 @@ class OptionsState extends MusicBeatState
                     case 'Notes':
                         openSubState(new NotesSubstate());
     
-						/*
                     case 'Controls':
-                        openSubState(new KeyBindMenu());*/
+                        openSubState(new KeyBindMenu());
 
 					case 'Mobile Controls':
 						MusicBeatState.switchState(new options.CustomControlsState());
-						
+
                     case 'Preferences':
                         openSubState(new PreferencesSubstate());
                 }
