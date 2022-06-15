@@ -31,15 +31,33 @@ class KeyBindMenu extends MusicBeatSubstate
     var keyTextDisplay:FlxText;
     var keyWarning:FlxText;
     var warningTween:FlxTween;
-    var keyText:Array<String> = ["NOTE LEFT", "NOTE DOWN", "NOTE UP", "NOTE RIGHT" /*"UI LEFT", 'UI DOWN', 'UI UP', 'UI RIGHT', "ACCEPT", "BACK", "PAUSE", "RESET"*/];
-    var defaultKeys:Array<String> = ["A", "S", "W", "D"];
-    var curSelected:Int = -1;
+    var keyText:Array<Dynamic> = 
+    [
+        "NOTE LEFT", "NOTE DOWN", "NOTE UP", "NOTE RIGHT",
+        "UI LEFT", 'UI DOWN', 'UI UP', 'UI RIGHT',
+        "ACCEPT", "BACK", "PAUSE", "RESET"
+    ];
+    var defaultKeys:Array<Dynamic> = 
+    [
+        "A", "S", "W", "D",
+        "A", "S", "W", "D",
+        "SPACE", "BACKSPACE", "ENTER", "R"
+    ];
+    var curSelected:Int = 0;
 
     var keys:Array<Dynamic> = [
         FlxG.save.data.noteLeftBind, //0
         FlxG.save.data.noteDownBind, //1
         FlxG.save.data.noteUpBind, //2
         FlxG.save.data.noteRightBind, //3
+        FlxG.save.data.uiLeftBind, //4
+        FlxG.save.data.uiDownBind, //5
+        FlxG.save.data.uiUpBind, //6
+        FlxG.save.data.uiRightBind, //7
+        FlxG.save.data.acceptBind, //8
+        FlxG.save.data.backBind, //9
+        FlxG.save.data.pauseBind, //10
+        FlxG.save.data.resetBind //11
     ];
 
     var tempKey:String = "";
@@ -111,10 +129,6 @@ class KeyBindMenu extends MusicBeatSubstate
 					changeItem(1);
 				}
 
-                if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
-                    //changeAlt();
-                }    
-
                 if (controls.ACCEPT){
                     FlxG.sound.play(Paths.sound('scrollMenu'));
                     state = "input";
@@ -169,14 +183,12 @@ class KeyBindMenu extends MusicBeatSubstate
 
         keyTextDisplay.text = "\n\n";
 
-        for(i in 0...4){
+        for(i in 0...12){
 
             var textStart = (i == curSelected) ? "> " : "  ";
             keyTextDisplay.text += textStart + keyText[i] + ": " + keys[i] + "\n";
         }
-
         keyTextDisplay.screenCenter();
-
     }
 
     function save(){
@@ -184,6 +196,14 @@ class KeyBindMenu extends MusicBeatSubstate
         FlxG.save.data.noteDownBind = keys[1];
         FlxG.save.data.noteUpBind = keys[2];
         FlxG.save.data.noteRightBind = keys[3];
+        FlxG.save.data.uiLeftBind = keys[4];
+        FlxG.save.data.uiDownBind = keys[5];
+        FlxG.save.data.uiUpBind = keys[6];
+        FlxG.save.data.uiRightBind = keys[7];
+        FlxG.save.data.acceptBind = keys[8];
+        FlxG.save.data.backBind = keys[9];
+        FlxG.save.data.pauseBind = keys[10];
+        FlxG.save.data.resetBind = keys[11];
 
         FlxG.save.flush();
 
@@ -192,6 +212,9 @@ class KeyBindMenu extends MusicBeatSubstate
 
     function reset()
     {
+        for(i in 0...12){
+            keys[i] = defaultKeys[i];
+        }
 
         quit();
 
@@ -247,9 +270,9 @@ class KeyBindMenu extends MusicBeatSubstate
     {
         curSelected += _amount;
                 
-        if (curSelected > 3)
+        if (curSelected > 11)
             curSelected = 0;
         if (curSelected < 0)
-            curSelected = 3;
+            curSelected = 11;
     }
 }
