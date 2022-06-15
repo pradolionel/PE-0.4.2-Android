@@ -7,40 +7,40 @@ import flixel.graphics.FlxGraphic;
 import Controls;
 
 class ClientPrefs {
-	public static var downScroll:Bool = false; //added
-	public static var middleScroll:Bool = false;//added
-	public static var showFPS:Bool = true;//added
-	public static var flashing:Bool = true;//added
-	public static var globalAntialiasing:Bool = true;//added
-	public static var noteSplashes:Bool = true;//added
-	public static var lowQuality:Bool = false;//added
-	public static var framerate:Int = 60;//added
+	public static var downScroll:Bool = false; 
+	public static var middleScroll:Bool = false;
+	public static var showFPS:Bool = true;
+	public static var flashing:Bool = true;
+	public static var globalAntialiasing:Bool = true;
+	public static var noteSplashes:Bool = true;
+	public static var lowQuality:Bool = false;
+	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
-	public static var camZooms:Bool = true;//added
-	public static var hideHud:Bool = false;//added
-	public static var iconBoping:Bool = false;//added
-	public static var noteOffset:Int = 0;//added
+	public static var camZooms:Bool = true;
+	public static var hideHud:Bool = false;
+	public static var iconBoping:Bool = false;
+	public static var noteOffset:Int = 0;
 	public static var speed:Float = 2;
 	public static var noteSize:Float = 0.7;
 	public static var scroll:Bool = false;
-	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]; //added
-	public static var imagesPersist:Bool = false;//added
-	public static var ghostTapping:Bool = true;//added
-	public static var timeBarType:String = 'Time Left';//added
-	public static var keTimeBar:Bool = false;//added
-	public static var arrowOpacity:Float = 1;//added
+	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]; 
+	public static var imagesPersist:Bool = false;
+	public static var ghostTapping:Bool = true;
+	public static var timeBarType:String = 'Time Left';
+	public static var keTimeBar:Bool = false;
+	public static var arrowOpacity:Float = 1;
 	public static var laneOpacity:Float = 1;
-	public static var healthBarAlpha:Float = 1; //added
-	public static var playHitSounds:Bool = false; //added
+	public static var healthBarAlpha:Float = 1; 
+	public static var playHitSounds:Bool = false; 
 	public static var dynamicCam:Bool = false;
 	public static var opponentLaneOpacity:Float = 1;
-	public static var healthCounter:Bool = false; //added
-	public static var opponentArrowOpacity:Float = 1; //added
-	public static var memoryCounter:Bool = false; //added
-	public static var judgements:Bool = false; //added
+	public static var healthCounter:Bool = false; 
+	public static var opponentArrowOpacity:Float = 1; 
+	public static var memoryCounter:Bool = false; 
+	public static var judgements:Bool = false; 
 	public static var scoreType:String = 'Kade Engine';
-	public static var noAntimash:Bool = false; //added
+	public static var noAntimash:Bool = false; 
 
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
