@@ -34,30 +34,24 @@ class KeyBindMenu extends MusicBeatSubstate
     var keyText:Array<Dynamic> = 
     [
         "NOTE LEFT", "NOTE DOWN", "NOTE UP", "NOTE RIGHT",
-        "UI LEFT", 'UI DOWN', 'UI UP', 'UI RIGHT',
         "ACCEPT", "BACK", "PAUSE", "RESET"
     ];
     var defaultKeys:Array<Dynamic> = 
     [
         "A", "S", "W", "D",
-        "A", "S", "W", "D",
         "SPACE", "BACKSPACE", "ENTER", "R"
     ];
-    var curSelected:Int = 0;
+    var curSelected:Int = -1;
 
     var keys:Array<Dynamic> = [
         FlxG.save.data.noteLeftBind, //0
         FlxG.save.data.noteDownBind, //1
         FlxG.save.data.noteUpBind, //2
         FlxG.save.data.noteRightBind, //3
-        FlxG.save.data.uiLeftBind, //4
-        FlxG.save.data.uiDownBind, //5
-        FlxG.save.data.uiUpBind, //6
-        FlxG.save.data.uiRightBind, //7
-        FlxG.save.data.acceptBind, //8
-        FlxG.save.data.backBind, //9
-        FlxG.save.data.pauseBind, //10
-        FlxG.save.data.resetBind //11
+        FlxG.save.data.acceptBind, //4
+        FlxG.save.data.backBind, //5
+        FlxG.save.data.pauseBind, //6
+        FlxG.save.data.resetBind //7
     ];
 
     var tempKey:String = "";
@@ -183,7 +177,7 @@ class KeyBindMenu extends MusicBeatSubstate
 
         keyTextDisplay.text = "\n\n";
 
-        for(i in 0...12){
+        for(i in 0...8){
 
             var textStart = (i == curSelected) ? "> " : "  ";
             keyTextDisplay.text += textStart + keyText[i] + ": " + keys[i] + "\n";
@@ -196,14 +190,10 @@ class KeyBindMenu extends MusicBeatSubstate
         FlxG.save.data.noteDownBind = keys[1];
         FlxG.save.data.noteUpBind = keys[2];
         FlxG.save.data.noteRightBind = keys[3];
-        FlxG.save.data.uiLeftBind = keys[4];
-        FlxG.save.data.uiDownBind = keys[5];
-        FlxG.save.data.uiUpBind = keys[6];
-        FlxG.save.data.uiRightBind = keys[7];
-        FlxG.save.data.acceptBind = keys[8];
-        FlxG.save.data.backBind = keys[9];
-        FlxG.save.data.pauseBind = keys[10];
-        FlxG.save.data.resetBind = keys[11];
+        FlxG.save.data.acceptBind = keys[4];
+        FlxG.save.data.backBind = keys[5];
+        FlxG.save.data.pauseBind = keys[6];
+        FlxG.save.data.resetBind = keys[7];
 
         FlxG.save.flush();
 
@@ -212,7 +202,7 @@ class KeyBindMenu extends MusicBeatSubstate
 
     function reset()
     {
-        for(i in 0...12){
+        for(i in 0...7){
             keys[i] = defaultKeys[i];
         }
 
