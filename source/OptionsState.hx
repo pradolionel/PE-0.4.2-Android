@@ -36,7 +36,7 @@ using StringTools;
 // TO DO: Redo the menu creation system for not being as dumb
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Controls', 'Mobile Controls', 'Notes', 'Preferences'];
+	var options:Array<String> = ['Controls', #if android 'Mobile Controls', #end 'Notes', 'Preferences'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -92,6 +92,7 @@ class OptionsState extends MusicBeatState
             }
     
             if (controls.BACK) {
+				ClientPrefs.saveSettings();
                 FlxG.sound.play(Paths.sound('cancelMenu'));
                 MusicBeatState.switchState(new MainMenuState());
             }
@@ -108,7 +109,10 @@ class OptionsState extends MusicBeatState
 						/*
                     case 'Controls':
                         openSubState(new KeyBindMenu());*/
-    
+
+					case 'Mobile Controls':
+						MusicBeatState.switchState(new options.CustomControlsState());
+						
                     case 'Preferences':
                         openSubState(new PreferencesSubstate());
                 }
@@ -587,8 +591,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 					case 'FPS Counter':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
+						if(Main.fpsVar != null)
+							Main.fpsVar.visible = ClientPrefs.showFPS;				
 					case 'Memory Counter':
 						ClientPrefs.memoryCounter = !ClientPrefs.memoryCounter;
+						if(Main.memoryCounter != null)
+							Main.memoryCounter.visible = ClientPrefs.memoryCounter;	
 					case 'Play Hit Sounds':
 						ClientPrefs.playHitSounds = !ClientPrefs.playHitSounds;
 					case 'Icon Boping':
