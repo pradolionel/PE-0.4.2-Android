@@ -52,30 +52,29 @@ class ClientPrefs {
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.framerate = framerate;
-		//FlxG.save.data.cursing = cursing;
-		//FlxG.save.data.violence = violence;
-		FlxG.save.data.speed = speed;
-		FlxG.save.data.scroll = scroll;
-		FlxG.save.data.noteSize = noteSize;
-		FlxG.save.data.keTimeBar = keTimeBar;
-		FlxG.save.data.timeBarType = timeBarType;
-		FlxG.save.data.playHitSounds = playHitSounds;
-		FlxG.save.data.dynamicCam = dynamicCam;
-		FlxG.save.data.scoreType = scoreType;
-		FlxG.save.data.healthCounter = healthCounter;
-		FlxG.save.data.arrowOpacity = arrowOpacity;
-		FlxG.save.data.opponentArrowOpacity = opponentArrowOpacity;
-		FlxG.save.data.laneOpacity = laneOpacity;
-		FlxG.save.data.opponentLaneOpacity = opponentLaneOpacity;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
-		FlxG.save.data.iconBoping = iconBoping;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.imagesPersist = imagesPersist;
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
+		FlxG.save.data.timeBarType = timeBarType;
+
+		//from engine
+		FlxG.save.data.keTimeBar = keTimeBar;
+		FlxG.save.data.playHitSounds = playHitSounds;
+		FlxG.save.data.scoreType = scoreType;
+		FlxG.save.data.healthCounter = healthCounter;
+		FlxG.save.data.arrowOpacity = arrowOpacity;
+		FlxG.save.data.opponentArrowOpacity = opponentArrowOpacity;
+		FlxG.save.data.iconBoping = iconBoping;
+		FlxG.save.data.noAntimash = noAntimash;
+		FlxG.save.data.healthBarAlpha = healthBarAlpha;
+		FlxG.save.data.memoryCounter = memoryCounter;
+		FlxG.save.data.judgements = judgements;
+		
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
@@ -85,6 +84,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		PlayerSettings.player1.controls.loadKeyBinds();
+		KeyBinds.keyCheck();
+
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}
@@ -119,60 +121,16 @@ class ClientPrefs {
 				FlxG.updateFramerate = framerate;
 			}
 		}
-		/*if(FlxG.save.data.cursing != null) {
-			cursing = FlxG.save.data.cursing;
-		}
-		if(FlxG.save.data.violence != null) {
-			violence = FlxG.save.data.violence;
-		}*/
 		if(FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
 		}
-		if(FlxG.save.data.noAntimash != null) {
-            noAntimash = FlxG.save.data.noAntimash;
-        }
-		if(FlxG.save.data.healthBarAlpha != null) {
-            healthBarAlpha = FlxG.save.data.healthBarAlpha;
-        }
-		if(FlxG.save.data.laneOpacity != null) {
-            laneOpacity = FlxG.save.data.laneOpacity;
-        }
-		if(FlxG.save.data.arrowOpacity != null) {
-            arrowOpacity = FlxG.save.data.arrowOpacity;
-        }
-		if(FlxG.save.data.memoryCounter != null) {
-            memoryCounter = FlxG.save.data.memoryCounter;
-        }
-		if(FlxG.save.data.playHitSounds != null) {
-            playHitSounds = FlxG.save.data.playHitSounds;
-        }
-		if(FlxG.save.data.dynamicCam != null) {
-            dynamicCam = FlxG.save.data.dynamicCam;
-        }
-		if(FlxG.save.data.opponentArrowOpacity != null) {
-            opponentArrowOpacity = FlxG.save.data.opponentArrowOpacity;
-        }
-		if(FlxG.save.data.opponentLaneOpacity != null) {
-            opponentLaneOpacity = FlxG.save.data.opponentLaneOpacity;
-        }
-		if(FlxG.save.data.scoreType != null) {
-            scoreType = FlxG.save.data.scoreType;
-        }
-		if(FlxG.save.data.iconBoping != null) {
-            iconBoping = FlxG.save.data.iconBoping;
-        }
-		if(FlxG.save.data.timeBarType != null) {
-            timeBarType = FlxG.save.data.timeBarType;
-        }
-		if(FlxG.save.data.judgements != null) {
-            judgements = FlxG.save.data.judgements;
-        }
-		if(FlxG.save.data.healthCounter != null) {
-            healthCounter = FlxG.save.data.healthCounter;
-        }
-		if(FlxG.save.data.keTimeBar != null) {
-            keTimeBar = FlxG.save.data.keTimeBar;
-        }
+		if(FlxG.save.data.imagesPersist != null) {
+			imagesPersist = FlxG.save.data.imagesPersist;
+			FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
+		}
+		if(FlxG.save.data.ghostTapping != null) {
+			ghostTapping = FlxG.save.data.ghostTapping;
+		}
 		if(FlxG.save.data.hideHud != null) {
 			hideHud = FlxG.save.data.hideHud;
 		}
@@ -182,23 +140,45 @@ class ClientPrefs {
 		if(FlxG.save.data.arrowHSV != null) {
 			arrowHSV = FlxG.save.data.arrowHSV;
 		}
-		if(FlxG.save.data.speed != null) {
-			speed = FlxG.save.data.speed;
-		}
-		if(FlxG.save.data.scroll != null) {
-			scroll = FlxG.save.data.scroll;
-		}
-		if(FlxG.save.data.noteSize != null) {
-			noteSize = FlxG.save.data.noteSize;
-		}
-		if(FlxG.save.data.imagesPersist != null) {
-			imagesPersist = FlxG.save.data.imagesPersist;
-			FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
-		}
-		if(FlxG.save.data.ghostTapping != null) {
-			ghostTapping = FlxG.save.data.ghostTapping;
-		}
-		
+		if(FlxG.save.data.timeBarType != null) {
+            timeBarType = FlxG.save.data.timeBarType;
+        }
+
+		//from engine
+		if(FlxG.save.data.keTimeBar != null) {
+            keTimeBar = FlxG.save.data.keTimeBar;
+        }
+		if(FlxG.save.data.playHitSounds != null) {
+            playHitSounds = FlxG.save.data.playHitSounds;
+        }
+		if(FlxG.save.data.scoreType != null) {
+            scoreType = FlxG.save.data.scoreType;
+        }
+		if(FlxG.save.data.healthCounter != null) {
+            healthCounter = FlxG.save.data.healthCounter;
+        }
+		if(FlxG.save.data.arrowOpacity != null) {
+            arrowOpacity = FlxG.save.data.arrowOpacity;
+        }
+		if(FlxG.save.data.opponentArrowOpacity != null) {
+            opponentArrowOpacity = FlxG.save.data.opponentArrowOpacity;
+        }
+		if(FlxG.save.data.iconBoping != null) {
+            iconBoping = FlxG.save.data.iconBoping;
+        }
+		if(FlxG.save.data.noAntimash != null) {
+            noAntimash = FlxG.save.data.noAntimash;
+        }
+		if(FlxG.save.data.healthBarAlpha != null) {
+            healthBarAlpha = FlxG.save.data.healthBarAlpha;
+        }
+		if(FlxG.save.data.memoryCounter != null) {
+            memoryCounter = FlxG.save.data.memoryCounter;
+        }
+		if(FlxG.save.data.judgements != null) {
+            judgements = FlxG.save.data.judgements;
+        }
+
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null) {
 			FlxG.sound.volume = FlxG.save.data.volume;
@@ -206,9 +186,5 @@ class ClientPrefs {
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v00', 'ninjamuffin99');
-	}
-
-	public static function reloadControls() {
-		PlayerSettings.player1.controls.setKeyboardScheme(KeyboardScheme.Solo);
 	}
 }
