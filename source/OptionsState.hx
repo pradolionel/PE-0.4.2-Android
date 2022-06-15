@@ -626,10 +626,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 			}
 		} else if (!usesCheckbox) {
 			if(controls.UI_LEFT || controls.UI_RIGHT) {
-                
-                var curIdx:Int = controls.UI_LEFT ? -1 : 1;
-                var availableOptions:Array<String> = [];
-
 				var add:Int = controls.UI_LEFT ? -1 : 1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
@@ -647,15 +643,15 @@ class PreferencesSubstate extends MusicBeatSubstate
 							FlxG.updateFramerate = ClientPrefs.framerate;
 						}
 					case 'Score Type':
-						availableOptions = ['Psych Engine', 'Kade Engine', 'Disabled'];
-						if(curIdx > 2) curIdx = 2; //limit of the array
-						else if (curIdx < 0) curIdx = 0;
-						ClientPrefs.scoreType = availableOptions[curIdx];
+						var availableOptions = ['Psych Engine', 'Kade Engine', 'Disabled'];
+						if(add > availableOptions.length) add = availableOptions.length;
+						else if (add < 0) add = 0;
+						ClientPrefs.scoreType = availableOptions[add];
 					case 'Time Bar':
-						availableOptions = ['Time Left', 'Time Elapsed', 'Song Name', 'Disabled'];
-						if(curIdx > 3) curIdx = 3; //limit of the array
-						else if (curIdx < 0) curIdx = 0;
-						ClientPrefs.timeBarType = availableOptions[curIdx];
+						var availableOptions = ['Time Left', 'Time Elapsed', 'Song Name', 'Disabled'];
+						if(add > availableOptions.length ) add = availableOptions.length;
+						else if (add < 0) add = 0;
+						ClientPrefs.timeBarType = availableOptions[add];
 					case 'Health Bar Opacity':
 						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
 						ClientPrefs.healthBarAlpha += custmadd;

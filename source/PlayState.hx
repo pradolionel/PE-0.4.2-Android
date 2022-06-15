@@ -935,14 +935,14 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) timeTxt.y = FlxG.height - 45;
 
 		if(ClientPrefs.timeBarType == 'Song Name')
-                {
-                        timeTxt.text = SONG.song;
-                }
-                updateTime = showTime;
+        {
+            timeTxt.text = SONG.song;
+        }
+        updateTime = showTime;
 
-                if (ClientPrefs.keTimeBar)
-                        timeBarBG = new AttachedSprite('healthBar');
-                else
+        if (ClientPrefs.keTimeBar)
+            timeBarBG = new AttachedSprite('healthBar');
+        else
 			timeBarBG = new AttachedSprite('timeBar');
 
 		timeBarBG.x = timeTxt.x;
@@ -977,28 +977,11 @@ class PlayState extends MusicBeatState
 		add(strumLineNotes);
 		add(grpNoteSplashes);
 
-		laneunderlayOpponent = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
-    	laneunderlayOpponent.alpha = ClientPrefs.opponentLaneOpacity;
-    	laneunderlayOpponent.color = FlxColor.BLACK;
-    	laneunderlayOpponent.scrollFactor.set();
-
-    	laneunderlay = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
-    	laneunderlay.alpha = ClientPrefs.laneOpacity;
-    	laneunderlay.color = FlxColor.BLACK;
-    	laneunderlay.scrollFactor.set();
-
-               /* if (!ClientPrefs.middleScroll)
-                        {
-                                add(laneunderlayOpponent);
-                        }
-                add(laneunderlay); //disabled for now.
-		*/
-
 		if(ClientPrefs.timeBarType == 'Song Name')
-                {
-                        timeTxt.size = 24;
-                        timeTxt.y += 3;
-                }
+        {
+            timeTxt.size = 24;
+            timeTxt.y += 3;
+        }
 		
 		var splash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(splash);
