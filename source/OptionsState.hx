@@ -447,7 +447,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Arrows Opacity',
 		'Enemy Arrows Opacity',
         'GAMEPLAY',
-		'Controller Mode',
 		'Downscroll',
 		'Middlescroll',
 		'Ghost Tapping',
@@ -579,24 +578,41 @@ class PreferencesSubstate extends MusicBeatSubstate
 			if(controls.ACCEPT && nextAccept <= 0) {
 				switch(options[curSelected]) {
 					case 'Low Quality':
+						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
 					case 'Anti-Aliasing':
+						ClientPrefs.globalAntialiasing = !ClientPrefs.globalAntialiasing;
 					case 'Presistent Cached Data':
+						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
 					case 'Note Splashes':
+						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 					case 'FPS Counter':
+						ClientPrefs.showFPS = !ClientPrefs.showFPS;
 					case 'Memory Counter':
+						ClientPrefs.memoryCounter = !ClientPrefs.memoryCounter;
 					case 'Play Hit Sounds':
+						ClientPrefs.playHitSounds = !ClientPrefs.playHitSounds;
 					case 'Icon Boping':
+						ClientPrefs.iconBoping = !ClientPrefs.iconBoping;
 					case 'Hide HUD':
+						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 					case 'Health Counter':
+						ClientPrefs.healthCounter = !ClientPrefs.healthCounter;
 					case 'Flashing Lights':
+						ClientPrefs.flashing = !ClientPrefs.flashing;
 					case 'Camera Zooms':
+						ClientPrefs.camZooms = !ClientPrefs.camZooms;
 					case 'Judgements':
+						ClientPrefs.judgements = !ClientPrefs.judgements;
 					case 'KE Timebar':
-					case 'Controller Mode':
+						ClientPrefs.keTimeBar = !ClientPrefs.keTimeBar;
 					case 'Downscroll':
+						ClientPrefs.downScroll = !ClientPrefs.downScroll;
 					case 'Middlescroll':
+						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
 					case 'Ghost Tapping':
+						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
 					case 'No Antimash':
+						ClientPrefs.noAntimash = !ClientPrefs.noAntimash;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -605,18 +621,58 @@ class PreferencesSubstate extends MusicBeatSubstate
 			if(controls.UI_LEFT || controls.UI_RIGHT) {
                 
                 var curIdx:Int = controls.UI_LEFT ? -1 : 1;
-                var availableOptions:Array<String> = ['hii'];
+                var availableOptions:Array<String> = [];
 
 				var add:Int = controls.UI_LEFT ? -1 : 1;
 				if(holdTime > 0.5 || controls.UI_LEFT_P || controls.UI_RIGHT_P)
 				switch(options[curSelected]) {
 					case 'Framerate':
+						//taken from funny 0.3.2-h mod port repo lol
+						ClientPrefs.framerate += add;
+						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
+						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
+
+						if(ClientPrefs.framerate > FlxG.drawFramerate) {
+							FlxG.updateFramerate = ClientPrefs.framerate;
+							FlxG.drawFramerate = ClientPrefs.framerate;
+						} else {
+							FlxG.drawFramerate = ClientPrefs.framerate;
+							FlxG.updateFramerate = ClientPrefs.framerate;
+						}
 					case 'Score Type':
+						availableOptions = ['Psych Engine', 'Kade Engine', 'Disabled'];
+						if(curIdx > 2) curIdx = 2; //limit of the array
+						else if (curIdx < 0) curIdx = 0;
+						ClientPrefs.scoreType = availableOptions[curIdx];
 					case 'Time Bar':
+						availableOptions = ['Time Left', 'Time Elapsed', 'Song Name', 'Disabled'];
+						if(curIdx > 3) curIdx = 3; //limit of the array
+						else if (curIdx < 0) curIdx = 0;
+						ClientPrefs.timeBarType = availableOptions[curIdx];
 					case 'Health Bar Opacity':
+						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
+						ClientPrefs.healthBarAlpha += custmadd;
+						if(ClientPrefs.healthBarAlpha < 0) ClientPrefs.healthBarAlpha = 0;
+						else if(ClientPrefs.healthBarAlpha > 1) ClientPrefs.healthBarAlpha = 1;
 					case 'Arrows Opacity':
+						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
+						ClientPrefs.arrowOpacity += custmadd;
+						if(ClientPrefs.arrowOpacity < 0) ClientPrefs.arrowOpacity = 0;
+						else if(ClientPrefs.arrowOpacity > 1) ClientPrefs.arrowOpacity = 1;
 					case 'Enemy Arrows Opacity':
+						var custmadd:Float = controls.UI_LEFT ? -0.1 : 0.1;
+						ClientPrefs.opponentArrowOpacity += custmadd;
+						if(ClientPrefs.opponentArrowOpacity < 0) ClientPrefs.opponentArrowOpacity = 0;
+						else if(ClientPrefs.opponentArrowOpacity > 1) ClientPrefs.opponentArrowOpacity = 1;
 					case 'Note Delay':
+						//taken from funny 0.3.2-h mod port repo lol
+						var mult:Int = 1;
+						if(holdTime > 1.5) { //Double speed after 1.5 seconds holding
+							mult = 2;
+						}
+						ClientPrefs.noteOffset += add * mult;
+						if(ClientPrefs.noteOffset < 0) ClientPrefs.noteOffset = 0;
+						else if(ClientPrefs.noteOffset > 500) ClientPrefs.noteOffset = 500;
 				}
 				reloadValues();
 
@@ -650,31 +706,55 @@ class PreferencesSubstate extends MusicBeatSubstate
 		var daText:String = '';
 		switch(options[curSelected]) {
 			case 'Low Quality':
+				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
 			case 'Anti-Aliasing':
+				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.";
 			case 'Framerate':
+				daText = "Pretty self explanatory, isn't it?";
 			case 'Presistent Cached Data':
+				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
 			case 'Note Splashes':
+				daText = "If unchecked, hitting \"Sick!\" notes won't show particles.";
 			case 'Score Type':
+				daText = "What should the score be like?";
 			case 'FPS Counter':
+				daText = "If unchecked, hides FPS Counter.";
 			case 'Memory Counter':
+				daText = "If checked, enables memory counter.";
 			case 'Play Hit Sounds':
+				daText = "If checked, enables hit sounds.";
 			case 'Icon Boping':
+				daText = "If checked, enables icon Boping.";
 			case 'Hide HUD':
+				daText = "If checked, hides most HUD elements.";
 			case 'Health Counter':
+				daText = "If checked, enables the health counter.";
 			case 'Time Bar':
+				daText = "What should the Time Bar display?";
 			case 'Flashing Lights':
+				daText = "Uncheck this if you're sensitive to flashing lights!";
 			case 'Camera Zooms':
+				daText = "If unchecked, the camera won't zoom in on a beat hit.";
 			case 'Judgements':
+				daText = "If unchecked, hides judgements.";
 			case 'KE Timebar':
+				daText = "If checked, uses the KE timebar.";
 			case 'Health Bar Opacity':
+				daText = "How Opaque should the health bar and icons be.";
 			case 'Arrows Opacity':
+				daText = "How Opaque should the arrows be.";
 			case 'Enemy Arrows Opacity':
-			case 'Controller Mode':
+				daText = "How Opaque should the opponent arrows be.";
 			case 'Downscroll':
+				daText = "If checked, notes go Down instead of Up, simple enough.";
 			case 'Middlescroll':
+				daText = "If checked, your notes get centered.";
 			case 'Ghost Tapping':
+				daText = "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.";
 			case 'No Antimash':
+				daText = "If checked, disables antimash.";
 			case 'Note Delay':
+				daText = "Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.";
 		}
 		descText.text = daText;
 
@@ -730,6 +810,42 @@ class PreferencesSubstate extends MusicBeatSubstate
 			if(checkbox != null) {
 				var daValue:Bool = false;
 				switch(options[checkboxNumber[i]]) {
+					case 'Low Quality':
+						daValue = ClientPrefs.lowQuality;
+					case 'Anti-Aliasing':
+						daValue = ClientPrefs.globalAntialiasing;
+					case 'Presistent Cached Data':
+						daValue = ClientPrefs.imagesPersist;
+					case 'Note Splashes':
+						daValue = ClientPrefs.noteSplashes;
+					case 'FPS Counter':
+						daValue = ClientPrefs.showFPS;
+					case 'Memory Counter':
+						daValue = ClientPrefs.memoryCounter;
+					case 'Play Hit Sounds':
+						daValue = ClientPrefs.playHitSounds;
+					case 'Icon Boping':
+						daValue = ClientPrefs.iconBoping;
+					case 'Hide HUD':
+						daValue = ClientPrefs.hideHud;
+					case 'Health Counter':
+						daValue = ClientPrefs.healthCounter;
+					case 'Flashing Lights':
+						daValue = ClientPrefs.flashing;
+					case 'Camera Zooms':
+						daValue = ClientPrefs.camZooms;
+					case 'Judgements':
+						daValue = ClientPrefs.judgements;
+					case 'KE Timebar':
+						daValue = ClientPrefs.keTimeBar;
+					case 'Downscroll':
+						daValue = ClientPrefs.downScroll;
+					case 'Middlescroll':
+						daValue = ClientPrefs.middleScroll;
+					case 'Ghost Tapping':
+						daValue = ClientPrefs.ghostTapping;
+					case 'No Antimash':
+						daValue = ClientPrefs.noAntimash;
 				}
 				checkbox.daValue = daValue;
 			}
@@ -739,6 +855,20 @@ class PreferencesSubstate extends MusicBeatSubstate
 			if(text != null) {
 				var daText:String = '';
 				switch(options[textNumber[i]]) {
+					case 'Framerate':
+						daText = ClientPrefs.framerate + "FPS";
+					case 'Score Type':
+						daText = ClientPrefs.scoreType;
+					case 'Time Bar':
+						daText = ClientPrefs.timeBarType;
+					case 'Health Bar Opacity':
+						daText = '' + ClientPrefs.healthBarAlpha;
+					case 'Arrows Opacity':
+						daText = '' + ClientPrefs.arrowOpacity;
+					case 'Enemy Arrows Opacity':
+						daText = '' + ClientPrefs.opponentArrowOpacity;
+					case 'Note Delay':
+						daText = ClientPrefs.noteOffset + "ms";
 				}
 				var lastTracker:FlxSprite = text.sprTracker;
 				text.sprTracker = null;
