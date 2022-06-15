@@ -172,7 +172,7 @@ class KeyBindMenu extends MusicBeatSubstate
         for(i in 0...4){
 
             var textStart = (i == curSelected) ? "> " : "  ";
-            keyTextDisplay.text += textStart + keyText[i] + ": " + keys[i];
+            keyTextDisplay.text += textStart + keyText[i] + ": " + keys[i] + "\n";
         }
 
         keyTextDisplay.screenCenter();
