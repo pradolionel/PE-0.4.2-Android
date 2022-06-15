@@ -43,32 +43,6 @@ class ClientPrefs {
 	public static var scoreType:String = 'Kade Engine';
 	public static var noAntimash:Bool = false;
 
-	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState.hx)'s list
-	public static var keyBinds:Map<String, Dynamic> = new Map<String, Dynamic>();
-	public static var defaultKeys:Map<String, Dynamic>;
-
-	public static function startControls() {
-		//Key Bind, Name for ControlsSubState
-		keyBinds.set('note_left', [A, LEFT]);
-		keyBinds.set('note_down', [S, DOWN]);
-		keyBinds.set('note_up', [W, UP]);
-		keyBinds.set('note_right', [D, RIGHT]);
-		
-		keyBinds.set('ui_left', [A, LEFT]);
-		keyBinds.set('ui_down', [S, DOWN]);
-		keyBinds.set('ui_up', [W, UP]);
-		keyBinds.set('ui_right', [D, RIGHT]);
-		
-		keyBinds.set('accept', [SPACE, ENTER]);
-		keyBinds.set('back', [BACKSPACE, ESCAPE]);
-		keyBinds.set('pause', [ENTER, ESCAPE]);
-		keyBinds.set('reset', [R, NONE]);
-
-
-		// Don't delete this
-		defaultKeys = keyBinds.copy();
-	}
-
 	public static function saveSettings() {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
@@ -105,8 +79,7 @@ class ClientPrefs {
 		FlxG.save.flush();
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', 'ninjamuffin99'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
-		save.data.customControls = keyBinds;
+		save.bind('controls_v00', 'ninjamuffin99'); //Placing this in a separate save so that it can be manually deleted without removing your Score and stuff
 		save.flush();
 		FlxG.log.add("Settings saved!");
 	}
@@ -232,14 +205,7 @@ class ClientPrefs {
 		}
 
 		var save:FlxSave = new FlxSave();
-		save.bind('controls_v2', 'ninjamuffin99');
-		if(save != null && save.data.customControls != null) {
-			var loadedControls:Map<String, Dynamic> = save.data.customControls;
-			for (control => keys in loadedControls) {
-				keyBinds.set(control, keys);
-			}
-			reloadControls();
-		}
+		save.bind('controls_v00', 'ninjamuffin99');
 	}
 
 	public static function reloadControls() {

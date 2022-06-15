@@ -31,19 +31,18 @@ class KeyBindMenu extends MusicBeatSubstate
     var keyTextDisplay:FlxText;
     var keyWarning:FlxText;
     var warningTween:FlxTween;
-    var keyText:Array<String> = ["LEFT", "DOWN", "UP", "RIGHT"];
-    var defaultKeys:Array<String> = ["A", "S", "W", "D", "R"];
-    var curSelected:Int = 0;
-    var curAlt:Bool = false;
+    var keyText:Array<String> = ["NOTE LEFT", "NOTE DOWN", "NOTE UP", "NOTE RIGHT" /*"UI LEFT", 'UI DOWN', 'UI UP', 'UI RIGHT', "ACCEPT", "BACK", "PAUSE", "RESET"*/];
+    var defaultKeys:Array<String> = ["A", "S", "W", "D"];
+    var curSelected:Int = -1;
 
-    var keys:Array<String> = [FlxG.save.data.leftBind,
-                              FlxG.save.data.downBind,
-                              FlxG.save.data.upBind,
-                              FlxG.save.data.rightBind];
+    var keys:Array<Dynamic> = [
+        FlxG.save.data.noteLeftBind, //0
+        FlxG.save.data.noteDownBind, //1
+        FlxG.save.data.noteUpBind, //2
+        FlxG.save.data.noteRightBind, //3
+    ];
 
     var tempKey:String = "";
-    var blacklist:Array<String> = ["ESCAPE", "ENTER", "BACKSPACE", "SPACE"];
-
     var blackBox:FlxSprite;
     var infoText:FlxText;
 
@@ -140,7 +139,7 @@ class KeyBindMenu extends MusicBeatSubstate
                     FlxG.sound.play(Paths.sound('confirmMenu'));
                 }
                 else if(controls.ACCEPT){
-                    addKey(defaultKeys[curSelected]);
+                    //addKey(defaultKeys[curSelected]);
                     save();
                     state = "select";
                 }
@@ -173,8 +172,7 @@ class KeyBindMenu extends MusicBeatSubstate
         for(i in 0...4){
 
             var textStart = (i == curSelected) ? "> " : "  ";
-            keyTextDisplay.text += textStart + keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " / ") : "" ) + keyText[i] + " ARROW\n";
-
+            keyTextDisplay.text += textStart + keyText[i] + ": " + keys[i];
         }
 
         keyTextDisplay.screenCenter();
@@ -182,24 +180,19 @@ class KeyBindMenu extends MusicBeatSubstate
     }
 
     function save(){
-        ClientPrefs.reloadControls();
-        /*
-        FlxG.save.data.upBind = keys[2];
-        FlxG.save.data.downBind = keys[1];
-        FlxG.save.data.leftBind = keys[0];
-        FlxG.save.data.rightBind = keys[3];
+        FlxG.save.data.noteLeftBind = keys[0];
+        FlxG.save.data.noteDownBind = keys[1];
+        FlxG.save.data.noteUpBind = keys[2];
+        FlxG.save.data.noteRightBind = keys[3];
 
-        FlxG.save.flush();*/
+        FlxG.save.flush();
 
-        //PlayerSettings.player1.controls.loadKeyBinds();
-
+        PlayerSettings.player1.controls.loadKeyBinds();
     }
 
-    function reset(){
+    function reset()
+    {
 
-        for(i in 0...5){
-            keys[i] = defaultKeys[i];
-        }
         quit();
 
     }
@@ -224,8 +217,6 @@ class KeyBindMenu extends MusicBeatSubstate
 
         var notAllowed:Array<String> = [];
 
-        for(x in blacklist){notAllowed.push(x);}
-
         trace(notAllowed);
 
         for(x in 0...keys.length)
@@ -241,7 +232,8 @@ class KeyBindMenu extends MusicBeatSubstate
             keys[curSelected] = r;
             FlxG.sound.play(Paths.sound('scrollMenu'));
         }
-        else{
+        else
+        {
             keys[curSelected] = tempKey;
             FlxG.sound.play(Paths.sound('scrollMenu'));
             keyWarning.alpha = 1;

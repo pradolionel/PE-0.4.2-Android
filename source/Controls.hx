@@ -767,6 +767,8 @@ class Controls extends FlxActionSet
 
 	public function setKeyboardScheme(scheme:KeyboardScheme, reset = true)
 	{
+		loadKeyBinds();
+		/*
 		if (reset)
 			removeKeyboard();
 
@@ -864,7 +866,29 @@ class Controls extends FlxActionSet
 			case None: // nothing
 			case Custom: // nothing
 		}
-		#end
+		#end*/
+	}
+
+	public function loadKeyBinds()
+	{
+		removeKeyboard();
+		KeyBinds.keyCheck();
+
+		inline bindKeys(Control.UI_UP, [FlxKey.fromString(FlxG.save.data.uiUpBind), FlxKey.fromString(FlxG.save.data.uiUpALTBind)]);
+		inline bindKeys(Control.UI_DOWN, [FlxKey.fromString(FlxG.save.data.uiDownBind), FlxKey.fromString(FlxG.save.data.uiDownALTBind)]);
+		inline bindKeys(Control.UI_LEFT, [FlxKey.fromString(FlxG.save.data.uiLeftBind), FlxKey.fromString(FlxG.save.data.uiLeftALTBind)]);
+		inline bindKeys(Control.UI_RIGHT, [FlxKey.fromString(FlxG.save.data.uiRightBind), FlxKey.fromString(FlxG.save.data.uiRightALTBind)]);
+
+		inline bindKeys(Control.NOTE_UP, [FlxKey.fromString(FlxG.save.data.noteUpBind), FlxKey.fromString(FlxG.save.data.noteUpALTBind)]);
+		inline bindKeys(Control.NOTE_DOWN, [FlxKey.fromString(FlxG.save.data.noteDownBind), FlxKey.fromString(FlxG.save.data.noteDownALTBind)]);
+		inline bindKeys(Control.NOTE_LEFT, [FlxKey.fromString(FlxG.save.data.noteLeftBind), FlxKey.fromString(FlxG.save.data.noteLeftALTBind)]);
+		inline bindKeys(Control.NOTE_RIGHT, [FlxKey.fromString(FlxG.save.data.noteRightBind), FlxKey.fromString(FlxG.save.data.noteRightALTBind)]);
+
+		inline bindKeys(Control.ACCEPT, [FlxKey.fromString(FlxG.save.data.acceptBind), FlxKey.fromString(FlxG.save.data.altacceptBind)]);
+		inline bindKeys(Control.BACK, [FlxKey.fromString(FlxG.save.data.backBind), FlxKey.fromString(FlxG.save.data.altbackBind)]);
+		inline bindKeys(Control.PAUSE, [FlxKey.fromString(FlxG.save.data.pauseBind), FlxKey.fromString(FlxG.save.data.altpauseBind)]);
+		inline bindKeys(Control.RESET, [FlxKey.fromString(FlxG.save.data.resetBind), FlxKey.fromString(FlxG.save.data.altresetBind)]);
+
 	}
 
 	function removeKeyboard()
