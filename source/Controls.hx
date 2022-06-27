@@ -517,7 +517,7 @@ class Controls extends FlxActionSet
 	}
 	
 
-	public function removeFlxInput(Tinputs) {
+	public function removeFlxInput(Tinputs:Dynamic) {
 		for (action in this.digitalActions)
 		{
 			var i = action.inputs.length;
@@ -526,7 +526,7 @@ class Controls extends FlxActionSet
 			{
 				var input = action.inputs[i];
 
-				var x = Tinputs.length;
+				var x:Dynamic = Tinputs.length;
 				while (x-- > 0)
 					if (Tinputs[x] == input)
 						action.remove(input);

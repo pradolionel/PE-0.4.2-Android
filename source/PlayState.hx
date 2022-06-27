@@ -233,7 +233,7 @@ class PlayState extends MusicBeatState
 	var scoreTxtTween:FlxTween;
 	var versionTxt:FlxText;
 	var judgementCounterTween:FlxTween;
-        var healthCounter:FlxText;
+    var healthCounter:FlxText;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1073,11 +1073,13 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		if (ClientPrefs.scoreType == 'Psych Engine') {
+		if (ClientPrefs.scoreType == 'Psych Engine') 
+		{
         	scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
             scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         }
-        else if (ClientPrefs.scoreType == 'Kade Engine') {
+        else if (ClientPrefs.scoreType == 'Kade Engine') 
+		{
         	scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
         	scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         }
@@ -1094,12 +1096,7 @@ class PlayState extends MusicBeatState
         healthCounter.visible = ClientPrefs.healthCounter;
         if(ClientPrefs.healthCounter) { add(healthCounter); }
 
-		if (!ClientPrefs.noAntimash) {
-            versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() , 16);
-        }
-    	else if (ClientPrefs.noAntimash) {
-            versionTxt = new FlxText(5, FlxG.height - 24, 0, SONG.song + " - " + CoolUtil.difficultyString() + " | no Antimash! " , 16);
-        }
+		versionTxt = new FlxText(4, healthBarBG.y + 50, 0 , SONG.song + " " + CoolUtil.difficultyString() , 16);
 		versionTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         versionTxt.scrollFactor.set();
         add(versionTxt);
@@ -1525,9 +1522,9 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
-                        #if mobileC
-		        mcontrols.visible = true;
-		        #end
+            #if mobileC
+		    mcontrols.visible = true;
+		    #end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 
@@ -1536,8 +1533,7 @@ class PlayState extends MusicBeatState
                         laneunderlayOpponent.x = opponentStrums.members[0].x - 25;
 
                         laneunderlay.screenCenter(Y);
-                        laneunderlayOpponent.screenCenter(Y);
-			*/
+                        laneunderlayOpponent.screenCenter(Y);*/
 
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
@@ -2236,14 +2232,14 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		if(ratingString == '?') {
-			scoreTxt.text = 'Score: ' + songScore + ' //  Misses: ' + songMisses + ' // Rank: ' + ratingString;
+		if(ratingString == 'N/A') {
+			scoreTxt.text = 'Score: ' + songScore + ' |  Misses: ' + songMisses + ' | ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\ne';
-                        healthCounter.text = 'Health: 50%';
+            healthCounter.text = 'Health: 50%';
 		} else {
-			scoreTxt.text = 'Score: ' + songScore + ' // Misses: ' + songMisses + ' // Acc: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // Rank: ' + ratingString + ' (' + ratingFC + ')' ;//peeps wanted no integer rating
-                        judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nE';
-                        healthCounter.text = 'Health: ' + Math.round(health * 50) + '%'  ;
+			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Accuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' | ' + ratingString + ' (' + ratingFC + ')' ;//peeps wanted no integer rating
+            judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nE';
+            healthCounter.text = 'Health: ' + Math.round(health * 50) + '%'  ;
 		}
 
 		if(cpuControlled) {
@@ -2252,7 +2248,7 @@ class PlayState extends MusicBeatState
 		}
 		botplayTxt.visible = cpuControlled;
 
-		if (FlxG.keys.justPressed.ENTER#if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if(ret != FunkinLua.Function_Stop) {
@@ -2331,19 +2327,25 @@ class PlayState extends MusicBeatState
                         health = ClientPrefs.tabiMax;
                 }	*/
 
-		if (healthBar.percent < 20) {
+        if (health > 2)
+			health = 2;
+
+		if (healthBar.percent < 20) 
+		{
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(255, 64, 64), 0.3);
 			iconP1.animation.curAnim.curFrame = 1;
-                }
-		else if (healthBar.percent > 80) {
+        }
+		else if (healthBar.percent > 80) 
+		{
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(100, 255, 100), 0.3);
 			iconP2.animation.curAnim.curFrame = 1;
-                }
-		else { 
+        }
+		else 
+		{ 
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(255, 255, 255), 0.3);
 			iconP1.animation.curAnim.curFrame = 0;
 			iconP2.animation.curAnim.curFrame = 0;
-                }
+        }
 
 		if (FlxG.keys.justPressed.EIGHT && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -4267,16 +4269,21 @@ class PlayState extends MusicBeatState
 		iconP2.updateHitbox();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
-			if (ClientPrefs.iconBoping) {
+			if (ClientPrefs.iconBoping) 
+			{
 				var funny:Float = (healthBar.percent * 0.01) + 0.01;
-        		if (curBeat % gfSpeed == 0) { 
-					curBeat % (gfSpeed * 2) == 0 ? {
+        		if (curBeat % gfSpeed == 0) 
+				{ 
+					curBeat % (gfSpeed * 2) == 0 ? 
+					{
         		    	iconP1.scale.set(1.1, 0.8);
         		    	iconP2.scale.set(1.1, 1.3);
 
         		        FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
         		        FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
-        		    } : {
+        		    } 
+					: 
+					{
         		        iconP1.scale.set(1.1, 1.3);
         		        iconP2.scale.set(1.1, 0.8);
 
@@ -4289,7 +4296,7 @@ class PlayState extends MusicBeatState
 
         			iconP1.updateHitbox();
         			iconP2.updateHitbox();
-        			}
+        		}
 			}
 		{
 			gf.dance();
@@ -4420,7 +4427,7 @@ class PlayState extends MusicBeatState
 			if(!Math.isNaN(ratingPercent) && ratingPercent < 0) ratingPercent = 0;
 
 			if(Math.isNaN(ratingPercent)) {
-				ratingString = '?';
+				ratingString = 'N/A';
 			} else if(ratingPercent >= 1) {
 				ratingPercent = 1;
 				ratingString = ratingStuff[ratingStuff.length-1][0]; //Uses last string
@@ -4433,11 +4440,11 @@ class PlayState extends MusicBeatState
 				}
 			}
 			ratingFC = "";
-	                   if (sicks > 0) ratingFC = "SFC";
-		               if (goods > 0) ratingFC = "GFC";
-		               if (bads > 0 || shits > 0) ratingFC = "FC";
-		                   if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
-			                   else if (songMisses >= 10) ratingFC = "Clear";
+			if (sicks > 0) ratingFC = "SFC";
+			if (goods > 0) ratingFC = "GFC";
+			if (bads > 0 || shits > 0) ratingFC = "FC";
+			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
+			else if (songMisses >= 10) ratingFC = "Clear";
 
 			setOnLuas('rating', ratingPercent);
 			setOnLuas('ratingName', ratingString);
