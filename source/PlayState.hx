@@ -180,9 +180,6 @@ class PlayState extends MusicBeatState
 	public static var changedDifficulty:Bool = false;
 	public static var cpuControlled:Bool = false;
 	var runCutscene:Bool = false;
-	//lane underlay stuff
-        public var laneunderlay:FlxSprite;
-        public var laneunderlayOpponent:FlxSprite; //buggy
 
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
@@ -1135,8 +1132,6 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		laneunderlayOpponent.cameras = [camHUD];
-                laneunderlay.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -1534,17 +1529,18 @@ class PlayState extends MusicBeatState
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
-                        #if mobileC
-		        mcontrols.visible = true;
-		        #end
+            #if mobileC
+		    mcontrols.visible = true;
+		    #end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
 
+			/*
 			laneunderlay.x = playerStrums.members[0].x - 25;
                         laneunderlayOpponent.x = opponentStrums.members[0].x - 25;
 
                         laneunderlay.screenCenter(Y);
-                        laneunderlayOpponent.screenCenter(Y);
+                        laneunderlayOpponent.screenCenter(Y);*/
 
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);
@@ -2243,14 +2239,14 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		if(ratingString == '?') {
-			scoreTxt.text = 'Score: ' + songScore + ' //  Misses: ' + songMisses + ' // Rank: ' + ratingString;
+		if(ratingString == 'N/A') {
+			scoreTxt.text = 'Score: ' + songScore + ' |  Misses: ' + songMisses + ' | ' + ratingString;
 			judgementCounter.text = 'Sicks: 0 \nGoods: 0\nBads: 0\nShits: 0\ne';
-                        healthCounter.text = 'Health: 50%';
+            healthCounter.text = 'Health: 50%';
 		} else {
-			scoreTxt.text = 'Score: ' + songScore + ' // Misses: ' + songMisses + ' // Acc: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' // Rank: ' + ratingString + ' (' + ratingFC + ')' ;//peeps wanted no integer rating
-                        judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nE';
-                        healthCounter.text = 'Health: ' + Math.round(health * 50) + '%'  ;
+			scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Accuracy: ' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%' + ' | ' + ratingString + ' (' + ratingFC + ')' ;//peeps wanted no integer rating
+            judgementCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nE';
+            healthCounter.text = 'Health: ' + Math.round(health * 50) + '%'  ;
 		}
 
 		if(cpuControlled) {
@@ -2259,7 +2255,7 @@ class PlayState extends MusicBeatState
 		}
 		botplayTxt.visible = cpuControlled;
 
-		if (FlxG.keys.justPressed.ENTER#if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', []);
 			if(ret != FunkinLua.Function_Stop) {
@@ -2338,19 +2334,25 @@ class PlayState extends MusicBeatState
                         health = ClientPrefs.tabiMax;
                 }	*/
 
-		if (healthBar.percent < 20) {
+        if (health > 2)
+			health = 2;
+
+		if (healthBar.percent < 20) 
+		{
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(255, 64, 64), 0.3);
 			iconP1.animation.curAnim.curFrame = 1;
-                }
-		else if (healthBar.percent > 80) {
+        }
+		else if (healthBar.percent > 80) 
+		{
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(100, 255, 100), 0.3);
 			iconP2.animation.curAnim.curFrame = 1;
-                }
-		else { 
+        }
+		else 
+		{ 
 			scoreTxt.color = CoolUtil.smoothColorChange(scoreTxt.color, FlxColor.fromRGB(255, 255, 255), 0.3);
 			iconP1.animation.curAnim.curFrame = 0;
 			iconP2.animation.curAnim.curFrame = 0;
-                }
+        }
 
 		if (FlxG.keys.justPressed.EIGHT && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -4427,7 +4429,7 @@ class PlayState extends MusicBeatState
 			if(!Math.isNaN(ratingPercent) && ratingPercent < 0) ratingPercent = 0;
 
 			if(Math.isNaN(ratingPercent)) {
-				ratingString = '?';
+				ratingString = 'N/A';
 			} else if(ratingPercent >= 1) {
 				ratingPercent = 1;
 				ratingString = ratingStuff[ratingStuff.length-1][0]; //Uses last string
@@ -4440,11 +4442,11 @@ class PlayState extends MusicBeatState
 				}
 			}
 			ratingFC = "";
-	                   if (sicks > 0) ratingFC = "SFC";
-		               if (goods > 0) ratingFC = "GFC";
-		               if (bads > 0 || shits > 0) ratingFC = "FC";
-		                   if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
-			                   else if (songMisses >= 10) ratingFC = "Clear";
+			if (sicks > 0) ratingFC = "SFC";
+			if (goods > 0) ratingFC = "GFC";
+			if (bads > 0 || shits > 0) ratingFC = "FC";
+			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
+			else if (songMisses >= 10) ratingFC = "Clear";
 
 			setOnLuas('rating', ratingPercent);
 			setOnLuas('ratingName', ratingString);
