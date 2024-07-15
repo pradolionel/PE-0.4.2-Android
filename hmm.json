@@ -23,7 +23,7 @@
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": "1.0.0"
+      "version": null
     },
     {
       "name": "SScript",
