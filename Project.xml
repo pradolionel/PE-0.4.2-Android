@@ -105,9 +105,10 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
-	<haxelib name="flixel-addons" />
-
+	<haxelib name="flixel"/> 
+	<haxelib name="flixel-addons"/>
+	<haxelib name="flixel-ui"/>
+  
 	<!--Psych stuff needed--> 
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
