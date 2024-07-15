@@ -1,10 +1,13 @@
-   {
+    {
   "dependencies": [
     {
       "name": "openfl",
       "type": "haxelib",
-      "version": "9.3.2"
+      "version": "9.3.2" 
     },
+     "name": "webgl",
+      "type": "haxelib",
+      "version": null
     {
       "name": "flixel",
       "type": "haxelib",
