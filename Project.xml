@@ -65,44 +65,36 @@
 
 	<define name="PRELOAD_ALL" unless="web" />
 	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-
-	<!-- Assets -->
-	<assets path="assets/fonts" />
-	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
-	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/embed"         exclude="*.ogg" if="web" embed="true"/>
-	<assets path="assets/embed"         exclude="*.mp3" unless="web" embed="true"/>
-	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
-	<assets path="assets/songs"         exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
-	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
+	
+	<section if="PRELOAD_ALL">
+		<library name="songs"         preload="true" />
+		<library name="shared"        preload="true" />
+		<library name="week2"         preload="true" />
+		<library name="week3"         preload="true" />
+		<library name="week4"         preload="true" />
+		<library name="week5"         preload="true" />
+		<library name="week6"         preload="true" />
+		<library name="week7"         preload="true" />
 	</section>
-
-	<section if="TRANSLATIONS_ALLOWED">
-		<assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/translations" rename="assets" exclude="*.mp3"  unless="web"/>
-	</section>
-
-	<section if="BASE_GAME_FILES">
-		<assets path="assets/base_game" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/base_game" rename="assets" exclude="*.mp3"  unless="web"/>
-	</section>
-
+	
 	<section if="NO_PRELOAD_ALL">
-	<library name="songs"         preload="false" />
-	<library name="week_assets"   preload="false" />
+		<library name="songs"         preload="false" />
+		<library name="shared"        preload="false" />
+		<library name="week2"         preload="false" />
+		<library name="week3"         preload="false" />
+		<library name="week4"         preload="false" />
+		<library name="week5"         preload="false" />
+		<library name="week6"         preload="false" />
+		<library name="week7"         preload="false" />
 	</section>
 
-	<define name="CHECK_FOR_UPDATES" if="officialBuild" />
-
-	<section if="MODS_ALLOWED">
-		<assets path='example_mods' rename='mods' embed='false'/>
-	</section>
-	<assets path='art/readme.txt' rename='do NOT readme.txt' unless="mobile"/>
+	<assets path="assets/songs"         library="songs"         exclude="*.mp3"/>
+	<assets path="assets/shared"        library="shared"        exclude="*.mp3"/>
+	<assets path="assets/week2"         library="week2"         exclude="*.mp3"/>
+	<assets path="assets/week3"         library="week3"         exclude="*.mp3"/>
+	<assets path="assets/week4"         library="week4"         exclude="*.mp3"/>
+	<assets path="assets/week5"         library="week5"         exclude="*.mp3"/>
+	<assets path="assets/week6"         library="week6"         exclude="*.mp3"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
