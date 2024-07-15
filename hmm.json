@@ -1,4 +1,4 @@
- {
+{
   "dependencies": [
     {
       "name": "openfl",
@@ -43,6 +43,13 @@
       "dir": null,
       "ref": "dev",
       "url": "https://github.com/ShadowMario/flxanimate.git"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "git",
+      "dir": null,
+      "ref": "SAF",
+      "url": "https://github.com/MobilePorting/extension-androidtools-Base.git"
     }
   ]
 }
