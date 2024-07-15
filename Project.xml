@@ -108,8 +108,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 
-	<!--Psych stuff needed-->
-	<haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+	<!--Psych stuff needed--> 
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="flxanimate" unless="html5"/>
