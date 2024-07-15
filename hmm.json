@@ -7,7 +7,7 @@
     },
     {
       "name": "extension-webview",
-      "type": "git",
+      "type": "haxelib ",
       "dir": null,
       "ref": "main",
       "url": "https://github.com/jigsaw-4277821/extension-webview"
