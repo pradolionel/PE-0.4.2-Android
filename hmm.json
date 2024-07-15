@@ -5,9 +5,12 @@
       "type": "haxelib",
       "version": "9.3.2" 
     },
-     "name": "webgl",
-      "type": "haxelib",
-      "version": null
+      "name": "extension-webview",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/jigsaw-4277821/extension-webview"
+    },
     {
       "name": "flixel",
       "type": "haxelib",
@@ -34,7 +37,7 @@
       "dir": null,
       "ref": "main",
       "url": "https://github.com/MobilePorting/SScript-Base"
-    },
+    }, 
     {
       "name": "tjson",
       "type": "haxelib",
