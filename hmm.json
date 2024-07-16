@@ -6,13 +6,6 @@
       "version": "9.3.2" 
     },
     {
-      "name": "extension-webview",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/jigsaw-4277821/extension-webview"
-    },
-    {
       "name": "flixel",
       "type": "haxelib",
       "version": "5.5.0"
