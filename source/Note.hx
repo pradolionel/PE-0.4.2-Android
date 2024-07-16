@@ -1,11 +1,5 @@
 package objects;
 
-import backend.animation.PsychAnimationController;
-import backend.NoteTypesConfig;
-
-import shaders.RGBPalette;
-import shaders.RGBPalette.RGBShaderReference;
-
 import objects.StrumNote;
 
 import flixel.math.FlxRect;
