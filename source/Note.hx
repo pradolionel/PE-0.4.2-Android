@@ -1,7 +1,5 @@
 package objects;
 
-import objects.StrumNote;
-
 import flixel.math.FlxRect;
 
 using StringTools;
@@ -11,18 +9,6 @@ typedef EventNote = {
 	event:String,
 	value1:String,
 	value2:String
-}
-
-typedef NoteSplashData = {
-	disabled:Bool,
-	texture:String,
-	useGlobalShader:Bool, //breaks r/g/b/a but makes it copy default colors for your custom note
-	useRGBShader:Bool,
-	antialiasing:Bool,
-	r:FlxColor,
-	g:FlxColor,
-	b:FlxColor,
-	a:Float
 }
 
 /**
