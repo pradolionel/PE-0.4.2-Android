@@ -1,4 +1,4 @@
-mm<?xml version="1.0" encoding="utf-8"?>
+mm< ?xml version="1.0" encoding="utf-8"?>
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
@@ -22,10 +22,7 @@ mm<?xml version="1.0" encoding="utf-8"?>
 
 
 	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
-	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits || hl || rpi"/> <!-- i'll keep this cuz it makes vscode think i don't use videos -->
-
+	
 	<section if="officialBuild">
 		<define name="TITLE_SCREEN_EASTER_EGG"/>
 		<define name="BASE_GAME_FILES" />
